@@ -19,6 +19,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### changed
 
 - 将证明完成的小方块从实心方块换成空心方块。
+- 本科生内封英文标题改成 `\centering` 。
+- 研究生扉页英文标题改成 `\centering` 。
 
 ## [v2.0.0-beta4] 2025-05-03
 
