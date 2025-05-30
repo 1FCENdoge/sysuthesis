@@ -1915,7 +1915,7 @@
   	{\textwidth}{>{\centering\arraybackslash\hyphenpenalty=10000\exhyphenpenalty=10000}X}
   	{\centering\sffamily\fontsize{16bp}{32bp}\selectfont
   	  \sysu@title\par}\par
-  	{\centerlast\rmfamily\fontsize{16bp}{29bp}\selectfont
+  	{\centering\rmfamily\fontsize{16bp}{29bp}\selectfont
   	  \sysu@title@en\par}
   	\end{tabularx}
     \vskip 16bp%
@@ -2020,7 +2020,7 @@
   	\ \vskip 1cm%
   	\ \\
     \parbox[t]{13cm}{%
-      \centerlast\sffamily\bfseries\fontsize{22bp}{37bp}\selectfont
+      \centering\sffamily\bfseries\fontsize{22bp}{37bp}\selectfont
       \sysu@title@en\par
     }\par
   }
@@ -2286,7 +2286,7 @@
   % 正文中的标题分章、节、段三级；章、节标题居中，段标题居左，
   % 分别用三号（16 bp）黑体、四号（14 bp）黑体、小四号（12 bp）加粗宋体。
     chapter = {
-      format = {
+      format = {%
         \centering\sffamily
         \if@mainmatter
           \fontsize{16bp}{29.33bp}\selectfont
