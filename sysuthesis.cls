@@ -2079,8 +2079,8 @@
 \newcommand\sysu@underline[2][3.2cm]{\underline{\hb@xt@ #1{\hss#2\hss}}}
 
 \newcommand\sysu@checkbox{%
-  \makebox[0bp][l]{$\square$}%
-  \raisebox{-0.2ex}{\hspace{0.1em}$\checkmark$}%
+  \makebox[0bp][l]{\raisebox{-0.2ex}{\hspace{0.1em}$\checkmark$}}%
+  $\square$%
 }
 
 \newcommand\sysu@copyrightpage@graduate{%
@@ -2103,11 +2103,11 @@
     \sysu@authorization\par
     \vskip 0.6cm%
 %    \ifx\sysu@secret@level\@empty
-%      \sysu@checkbox{} 公开\quad
-%      $\square$ 控阅（\sysu@underline[0.85cm]{}年）\par
+%      \sysu@checkbox\hbox{}公开\quad
+%      $\square$\hbox{}控阅（\sysu@underline[2em]{}年）\par
 %    \else
-%      $\square$ 公开\quad
-%      \sysu@checkbox{} 控阅（\sysu@underline[0.8cm]{\sysu@secret@year}年）\par
+%      $\square$\hbox{}公开\quad
+%      \sysu@checkbox\hbox{}控阅（\sysu@underline[2em]{\sysu@secret@year}年）\par
 %    \fi
     \vskip 0.5cm%
     学位论文作者签名：\hspace{3cm}%
