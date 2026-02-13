@@ -1,15 +1,39 @@
-\ProvidesFile{sysuthesis-numeric.bbx}[2025/04/04 v1.0 SYSUThesis biblatex
+\ProvidesFile{sysuthesis-numeric.bbx}[2021/01/19 v1.0 SYSUThesis biblatex
   bibliography style]
 
 \RequireBibliographyStyle{gb7714-2015}
 
 \ExecuteBibliographyOptions{
-  gbpub     = false,
   gbalign   = left,
+  gbnamefmt = lowercase,
+  gbpub     = false,
   gbpunctin = false,
   url       = false,
   doi       = false,
 }
+
+\setlength\biblabelsep{0pt}
+
+% 顺序编码制悬挂缩进 2.5 字符
+\defbibenvironment{bibliography}
+  {\list
+     {\printtext[labelnumberwidth]{%
+        \printfield{labelprefix}%
+        \printfield{labelnumber}}}
+     % {\setlength{\labelwidth}{\labelnumberwidth}%
+     %  \setlength{\leftmargin}{\labelwidth}%
+     {\setlength{\labelwidth}{2.5em}%
+      \setlength{\leftmargin}{2.5em}%
+      \setlength{\labelsep}{\biblabelsep}%
+      \addtolength{\leftmargin}{\labelsep}%
+      \setlength{\itemsep}{\bibitemsep}%
+      \setlength{\parsep}{\bibparsep}}%
+      % 参考文献表的编号居左。
+      % \renewcommand*{\makelabel}[1]{\hss##1}}
+      \renewcommand*{\makelabel}[1]{\hss##1}}
+  {\endlist}
+  {\item}
+
 
 \DeclareFieldFormat{sentencecase}{%
   \iftoggle{bbx:titlelink}{%
@@ -84,33 +108,6 @@
      \newunit}%
   \printfield{maintitleaddon}}
 
-
-%
-%   重设专利title的输出，将文献类型标识符输出出去
-%
-\renewbibmacro*{patenttitle}{%原输出来自biblatex.def文件
-  \ifboolexpr{%
-    test{\iffieldundef{title}}%
-    and%
-    test{\iffieldundef{subtitle}}%
-  }%
-    {}%
-    {\printtext[title]{\bibtitlefont%
-       \printfield[sentencecase]{title}%
-       \ifboolexpr{test {\iffieldundef{subtitle}}}
-       {}{\setunit{\subtitlepunct}%
-       \printfield[sentencecase]{subtitle}}%
-       \iffieldundef{titleaddon}{}
-        {\setunit{\subtitlepunct}\printfield{titleaddon}}%
-       % \setunit{\subtitlepunct}\printfield{number}%写专利号
-       \setunit{\subtitlepunct}%
-       \iflistundef{location}{}
-        {\printlist{location}\setunit{\addcomma\space}}% 专利国别
-       \printfield{number}%写专利号
-       \iftoggle{bbx:gbtype}{\printfield[gbtypeflag]{usera}}{}%
-     %\iffieldundef{booktitle}{\newunit}{}%当title是析出时，不要标点
-     %\newunit
-     }%
-}%
-\clearlist{location}\clearlist{address}%
-}
+% 斜线默认使用原字体，不再使用等宽字体
+% <https://github.com/tuna/thuthesis/discussions/1018>
+\def\SlashFont{}

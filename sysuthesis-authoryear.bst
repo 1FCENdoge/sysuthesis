@@ -1,7 +1,7 @@
 %% 本文件根据GB/T 7714-2015 BibTeX Style以及学校实际需求修改而来，
 %% GB/T 7714-2015 BibTeX Style文件来源：
 %% https://github.com/zepinglee/gbt7714-bibtex-style
-%% Version: 2025/03/11 v2.1.7
+%% Version: 2025/06/22 v2.1.8
 %% -------------------------------------------------------------------
 INTEGERS {
   citation.et.al.min
@@ -27,14 +27,13 @@ INTEGERS {
   show.missing.address.publisher
   space.before.pages
   only.start.page
-  wave.dash.in.pages
   show.urldate
   show.url
   show.doi
-  show.preprint
   show.note
   show.english.translation
   end.with.period
+  lowercase.word.after.colon
   lang.zh.order
   lang.ja.order
   lang.en.order
@@ -44,6 +43,7 @@ INTEGERS {
 
 STRINGS {
   component.part.label
+  page.range.delimiter
 }
 
 FUNCTION {load.config}
@@ -52,19 +52,19 @@ FUNCTION {load.config}
   #1 'citation.et.al.use.first :=
   #4 'bibliography.et.al.min :=
   #3 'bibliography.et.al.use.first :=
-  #1 'uppercase.name :=
+  #0 'uppercase.name :=
   #0 'terms.in.macro :=
   #1 'year.after.author :=
-  #1 'period.after.author :=
+  #0 'period.after.author :=
   #0 'italic.book.title :=
   #1 'sentence.case.title :=
   #0 'link.title :=
   #1 'title.in.journal :=
-  #1 'show.patent.country :=
+  #0 'show.patent.country :=
   #1 'show.mark :=
   #0 'space.before.mark :=
   #1 'show.medium.type :=
-  "none" 'component.part.label :=
+  "slash" 'component.part.label :=
   #0 'short.journal :=
   #0 'italic.journal :=
   #0 'link.journal :=
@@ -72,14 +72,14 @@ FUNCTION {load.config}
   #0 'show.missing.address.publisher :=
   #1 'space.before.pages :=
   #0 'only.start.page :=
-  #0 'wave.dash.in.pages :=
+  "-" 'page.range.delimiter :=
   #1 'show.urldate :=
   #0 'show.url :=
   #0 'show.doi :=
-  #1 'show.preprint :=
   #0 'show.note :=
   #0 'show.english.translation :=
   #1 'end.with.period :=
+  #1 'lowercase.word.after.colon :=
   #1 'lang.zh.order :=
   #2 'lang.ja.order :=
   #3 'lang.en.order :=
@@ -126,7 +126,7 @@ ENTRY
     year
   }
   { entry.lang entry.is.electronic is.pure.electronic entry.numbered }
-  { label extra.label sort.label short.label short.list entry.mark entry.url }
+  { label extra.label sort.label short.list entry.mark entry.url }
 
 INTEGERS { output.state before.all mid.sentence after.sentence after.block after.slash }
 
@@ -226,6 +226,14 @@ FUNCTION {bbl.sine.loco.sine.nomine}
     { "[S.l.: s.n.]" }
   if$
 }
+
+FUNCTION {default.self.tokens} { ":,-'–—?.!" }
+
+FUNCTION {latin.upper} { "ÀÁÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞŸĀĂĄĆĈĊČĎĐĒĔĖĘĚĜĞĠĢĤĦĨĪĬĮİIĴĶĹĻĽĿŁŃŅŇŊŌŎŐŒŔŖŘŚŜŞŠŢŤŦŨŪŬŮŰŲŴŶŸŹŻŽ" }
+
+FUNCTION {latin.lower} { "àáãäåæçèéêëìíîïðñòóôõöøùúûüýþÿāăąćĉċčďđēĕėęěĝğġģĥħĩīĭįiıĵķĺļľŀłńņňŋōŏőœŕŗřśŝşšţťŧũūŭůűųŵŷÿźżž" }
+
+FUNCTION {range.delimiters} { "-–—～" }
 
 FUNCTION {not}
 {   { #0 }
@@ -432,6 +440,619 @@ FUNCTION {new.sentence.checkb}
   if$
 }
 
+INTEGERS { b }
+
+FUNCTION {is.int.in.range}
+{
+  'b :=
+  #1 +
+  b >
+    { #1 - b < }
+    { pop$ #0 }
+  if$
+}
+
+FUNCTION {mult.power2}
+{
+  { duplicate$ #0 > }
+    {
+      swap$
+      duplicate$ +
+      swap$ #1 -
+    }
+  while$
+  pop$
+}
+
+FUNCTION {find.match.brace}
+{
+  's :=
+  't :=
+
+  #1
+  { duplicate$ #0 >
+    s empty$ not and }
+    {
+      s #1 #1 substring$ "{" =
+        { #1 + }
+        {
+          s #1 #1 substring$ "}" =
+            { #1 - }
+            'skip$
+          if$
+        }
+      if$
+      t s #1 #1 substring$ * 't :=
+      s #2 global.max$ substring$ 's :=
+    }
+  while$
+
+  duplicate$ #0 >
+    {
+      "Unbalanced brace(s): one or more closing braces are missing" warning$
+      { duplicate$ #0 > }
+        {
+          t "}" * 't :=
+          #1 -
+        }
+      while$
+    }
+    'skip$
+  if$
+  pop$
+
+  t
+  s
+}
+
+FUNCTION {split.first.char.from.str}
+{
+  duplicate$ "" =
+    {
+      "split.first.char.from.str: Trying to split an empty string!" warning$
+      ""
+    }
+    {
+      duplicate$ #1 #1 substring$ chr.to.int$ #128 <
+        {
+          duplicate$ #1 #1 substring$ swap$
+          #2 global.max$ substring$ swap$
+        }
+        {
+          duplicate$ #1 #1 substring$ chr.to.int$ #224 <
+            {
+              duplicate$ #1 #2 substring$ swap$
+              #3 global.max$ substring$ swap$
+            }
+            {
+              duplicate$ #1 #1 substring$ chr.to.int$ #240 <
+                {
+                  duplicate$ #1 #3 substring$ swap$
+                  #4 global.max$ substring$ swap$
+                }
+                {
+                  duplicate$ #1 #4 substring$ swap$
+                  #5 global.max$ substring$ swap$
+                }
+              if$
+            }
+          if$
+        }
+      if$
+    }
+  if$
+}
+
+FUNCTION {get.first.char.from.str}
+{
+  split.first.char.from.str swap$ pop$
+}
+
+FUNCTION {split.first.tex.char.from.str}
+{
+  duplicate$ #1 #1 substring$ "{" =
+    {
+      split.first.char.from.str swap$
+      find.match.brace swap$
+    }
+    'split.first.char.from.str
+  if$
+}
+
+FUNCTION {char.to.unicode}
+{
+  duplicate$ #4 #1 substring$ "" =
+    {
+      duplicate$ #3 #1 substring$ "" =
+        {
+          duplicate$ #2 #1 substring$ "" =
+            {
+              duplicate$ "" =
+                {
+                  "Empty string is not a char!" warning$
+                  pop$ #-1
+                }
+                { #1 #1 substring$ chr.to.int$ }
+              if$
+            }
+            {
+              duplicate$ #2 #1 substring$ chr.to.int$ #128 - swap$
+              #1 #1 substring$ chr.to.int$ #192 -
+              #6 mult.power2 +
+            }
+          if$
+        }
+        {
+          duplicate$ #3 #1 substring$ chr.to.int$ #128 - swap$
+          duplicate$ #2 #1 substring$ chr.to.int$ #128 - swap$
+          #1 #1 substring$ chr.to.int$ #224 -
+          #6 mult.power2 +
+          #6 mult.power2 +
+        }
+      if$
+    }
+    {
+      duplicate$ #4 #1 substring$ chr.to.int$ #128 - swap$
+      duplicate$ #3 #1 substring$ chr.to.int$ #128 - swap$
+      duplicate$ #2 #1 substring$ chr.to.int$ #128 - swap$
+      #1 #1 substring$ chr.to.int$ #240 -
+      #6 mult.power2 +
+      #6 mult.power2 +
+      #6 mult.power2 +
+    }
+  if$
+}
+
+FUNCTION {is.char.in.str}
+{
+  't :=
+
+  t "" =
+    { "is.char.in.str: Empty string is not a char!" warning$ }
+    'skip$
+  if$
+
+  #0 swap$
+  { duplicate$ "" = not }
+    {
+      split.first.char.from.str t =
+        { pop$ pop$ #1 "" }
+        'skip$
+      if$
+    }
+  while$
+  pop$
+}
+
+FUNCTION {is.upper.ascii}
+{
+  char.to.unicode #65 swap$ #90 swap$ is.int.in.range
+}
+
+FUNCTION {is.upper}
+{
+  duplicate$ is.upper.ascii
+    { pop$ #1 }
+    { latin.upper swap$ is.char.in.str }
+  if$
+}
+
+FUNCTION {is.lower.ascii}
+{
+  char.to.unicode #97 swap$ #122 swap$ is.int.in.range
+}
+
+FUNCTION {is.lower}
+{
+  duplicate$ is.lower.ascii
+    { pop$ #1 }
+    { latin.lower swap$ is.char.in.str }
+  if$
+}
+
+FUNCTION {is.printable.ascii}
+{
+  char.to.unicode #32 swap$ #126 swap$ is.int.in.range
+}
+
+FUNCTION {is.letter.ascii}
+{
+  duplicate$ is.upper.ascii swap$ is.lower.ascii or
+}
+
+FUNCTION {is.symbol.ascii}
+{
+  duplicate$ is.printable.ascii swap$ is.letter.ascii not and
+}
+
+FUNCTION {is.all.lower}
+{
+  #1 swap$
+  { duplicate$ "" = not }
+    {
+      split.first.char.from.str is.lower
+        'skip$
+        { pop$ pop$ #0 "" }
+      if$
+    }
+  while$
+  pop$
+}
+
+FUNCTION {is.tex.str.in.title.case}
+{
+  duplicate$ "" =
+    { pop$ #0 }
+    {
+      split.first.tex.char.from.str purify$
+      duplicate$ "" =
+        { pop$ pop$ #0 }
+        {
+          split.first.char.from.str is.upper
+            {
+              duplicate$ is.all.lower
+                {
+                  empty$
+                    {
+                      duplicate$ "" =
+                        { pop$ #0 }
+                        'is.all.lower
+                      if$
+                    }
+                    'is.all.lower
+                  if$
+                }
+                { pop$ pop$ #0 }
+              if$
+            }
+            { pop$ pop$ #0}
+          if$
+        }
+      if$
+    }
+  if$
+}
+
+FUNCTION {is.in.inter.token.chars}
+{
+  duplicate$ #0 =
+    { pop$ " " = }
+    {
+      #1 =
+        { " " range.delimiters * swap$ is.char.in.str }
+        'is.letter.ascii
+      if$
+    }
+  if$
+}
+
+FUNCTION {skip.inter.token.chars.by}
+{
+  'b :=
+  't :=
+
+  "" t
+  { duplicate$ "" = not }
+    {
+      split.first.char.from.str
+      duplicate$ b is.in.inter.token.chars
+        { swap$ 't := * t }
+        { swap$ * 't := "" }
+      if$
+    }
+  while$
+
+  pop$ t
+}
+
+FUNCTION {skip.inter.token.chars}
+{
+  #0 skip.inter.token.chars.by
+}
+
+FUNCTION {skip.inter.token.command}
+{
+  duplicate$ "" =
+    { "" }
+    {
+      duplicate$ #1 #1 substring$ is.symbol.ascii
+        { split.first.char.from.str swap$ }
+        { #2 skip.inter.token.chars.by }
+     if$
+    }
+  if$
+}
+
+FUNCTION {is.special.char.command}
+{
+  #2 global.max$ substring$ skip.inter.token.command
+
+  empty$
+    'skip$
+    { "is.special.char.command: cmdstr has extra components!" warning$ }
+  if$
+
+  duplicate$ duplicate$ duplicate$ duplicate$ duplicate$ duplicate$
+  "oOlLij" swap$ is.char.in.str
+  swap$ "oe" = or
+  swap$ "OE" = or
+  swap$ "ae" = or
+  swap$ "AE" = or
+  swap$ "aa" = or
+  swap$ "AA" = or
+}
+
+FUNCTION {map.char}
+{
+  't :=
+  split.first.char.from.str
+  { swap$ duplicate$ "" = not }
+    {
+      swap$ t =
+        { pop$ "" t }
+        {
+          swap$ split.first.char.from.str pop$ swap$
+          split.first.char.from.str
+        }
+      if$
+    }
+  while$
+  pop$ t =
+    'get.first.char.from.str
+    { pop$ t }
+  if$
+}
+
+FUNCTION {to.lower}
+{
+  duplicate$ is.upper.ascii
+    { chr.to.int$ #32 + int.to.chr$ }
+    { latin.lower swap$ latin.upper swap$ map.char }
+  if$
+}
+
+FUNCTION {to.upper}
+{
+  duplicate$ is.lower.ascii
+    { chr.to.int$ #32 - int.to.chr$ }
+    { latin.upper swap$ latin.lower swap$ map.char }
+  if$
+}
+
+FUNCTION {all.to.lower}
+{
+  "" swap$
+  { duplicate$ empty$ not }
+    { split.first.char.from.str to.lower swap$ 't := * t }
+  while$
+  *
+}
+
+FUNCTION {command.to.lower}
+{
+  duplicate$ "" =
+    { "command.to.lower: Empty string is not a texchar!" warning$ }
+    {
+      duplicate$ #1 #1 substring$ #92 int.to.chr$ =
+        {
+          duplicate$ is.special.char.command
+            'all.to.lower
+            'skip$
+          if$
+        }
+        'to.lower
+      if$
+    }
+  if$
+}
+
+FUNCTION {tex.to.lower}
+{
+  duplicate$ #1 #2 substring$ "{" #92 int.to.chr$ * =
+    {
+      "" swap$
+      { duplicate$ "" = not }
+        {
+          split.first.char.from.str
+          duplicate$ #92 int.to.chr$ =
+            {
+              swap$ skip.inter.token.command 't := * t
+              swap$ command.to.lower
+            }
+            'to.lower
+          if$
+          swap$ 't := * t
+        }
+      while$
+      pop$
+    }
+    {
+      duplicate$ #1 #1 substring$ "{" =
+        { split.first.char.from.str swap$ find.match.brace pop$ }
+        'command.to.lower
+      if$
+    }
+  if$
+}
+
+FUNCTION {all.to.upper}
+{
+  "" swap$
+  { duplicate$ empty$ not }
+    { split.first.char.from.str to.upper swap$ 't := * t }
+  while$
+  *
+}
+
+FUNCTION {command.to.upper}
+{
+  duplicate$ "" =
+    { "command.to.lower: Empty string is not a texchar!" warning$ }
+    {
+      duplicate$ #1 #1 substring$ #92 int.to.chr$ =
+        {
+           duplicate$ is.special.char.command
+             'all.to.upper
+             'skip$
+           if$
+        }
+        'to.upper
+      if$
+    }
+  if$
+}
+
+FUNCTION {tex.to.upper}
+{
+  duplicate$ #1 #2 substring$ "{" #92 int.to.chr$ * =
+    {
+      "" swap$
+      { duplicate$ "" = not }
+      {
+        split.first.char.from.str
+        duplicate$ #92 int.to.chr$ =
+          {
+            swap$ skip.inter.token.command 't := * t
+            swap$ command.to.upper
+          }
+          'to.upper
+        if$
+        swap$ 't := * t
+      }
+      while$
+      pop$
+    }
+    {
+      duplicate$ #1 #1 substring$ "{" =
+        { split.first.char.from.str swap$ find.match.brace pop$ }
+        'command.to.upper
+      if$
+    }
+  if$
+}
+
+FUNCTION {lower.token.if.in.title.case}
+{
+  duplicate$ is.tex.str.in.title.case
+    { split.first.tex.char.from.str tex.to.lower swap$ * }
+    'skip$
+  if$
+}
+
+FUNCTION {self.tokens}
+{
+  #0 =
+    'default.self.tokens
+    'range.delimiters
+  if$
+}
+
+FUNCTION {tokenize.by}
+{
+  'b :=
+  's :=
+
+  s "" =
+    { "" "" }
+    {
+      s split.first.char.from.str
+      duplicate$ b self.tokens swap$ is.char.in.str
+        'swap$
+        {
+          duplicate$ #92 int.to.chr$ =
+            { swap$ skip.inter.token.command 's := * s }
+            {
+              pop$ pop$ "" s
+              { duplicate$ "" = not }
+                {
+                  split.first.char.from.str
+                  duplicate$ "\ " b self.tokens * swap$ is.char.in.str
+                    { pop$ pop$ "" }
+                    {
+                      duplicate$ "{" =
+                        { swap$ find.match.brace }
+                        'swap$
+                      if$
+                      's := * s
+                    }
+                  if$
+                }
+              while$
+              pop$ s
+            }
+          if$
+        }
+      if$
+    }
+  if$
+}
+
+FUNCTION {tokenize}
+{
+  #0 tokenize.by
+}
+
+FUNCTION {smart.sentence.case}
+{
+  tokenize 's :=
+
+  { s "" = not }
+    {
+      s skip.inter.token.chars 's := * s
+      tokenize swap$
+      duplicate$ ":" =
+        {
+          swap$ 's := *
+          s skip.inter.token.chars 's := * s
+          tokenize swap$
+          lowercase.word.after.colon
+            {
+              duplicate$ "A" =
+                { pop$ "a" }
+                'lower.token.if.in.title.case
+              if$
+            }
+            'skip$
+          if$
+        }
+        'lower.token.if.in.title.case
+      if$
+      swap$ 's := *
+    }
+  while$
+}
+
+FUNCTION {smart.upper.case}
+{
+  s swap$ t swap$
+
+  "" swap$
+  { duplicate$ "" = not }
+    {
+      tokenize swap$
+      duplicate$ #1 #1 substring$ #92 int.to.chr$ =
+        'command.to.upper
+        {
+          "" swap$
+          { duplicate$ "" = not }
+            {
+              split.first.tex.char.from.str tex.to.upper
+              swap$ 't := * t
+            }
+          while$
+          pop$
+        }
+      if$
+      swap$ 't := * t
+      skip.inter.token.chars 't := * t
+    }
+  while$
+  pop$
+
+  swap$ 't :=
+  swap$ 's :=
+}
+
 FUNCTION {field.or.null}
 { duplicate$ empty$
     { pop$ "" }
@@ -587,7 +1208,7 @@ FUNCTION {format.name}
       name.lang lang.en =
         { t #1 "{vv~}{ll}{ f{~}}" format.name$
           uppercase.name
-            { "u" change.case$ }
+            'smart.upper.case
             'skip$
           if$
           t #1 "{, jj}" format.name$ *
@@ -766,7 +1387,7 @@ FUNCTION {output.bibitem}
 
 FUNCTION {change.sentence.case}
 { entry.lang lang.en =
-    { "t" change.case$ }
+    'smart.sentence.case
     'skip$
   if$
 }
@@ -1052,7 +1673,40 @@ FUNCTION {get.journal.title}
 }
 
 FUNCTION {check.arxiv.preprint}
-{ #1 #5 substring$ purify$ "l" change.case$ "arxiv" =
+{ "l" change.case$
+  duplicate$
+  "arxiv:" 'y :=
+  'x :=
+  y text.length$ 'len :=
+  x text.length$ len - #1 + 'charptr :=
+    { charptr #0 >
+      x charptr len substring$ y = not
+      and
+    }
+    { charptr #1 - 'charptr := }
+  while$
+  charptr #0 >
+    { x charptr #6 + global.max$ substring$ 'x :=
+      x text.length$ #1 + 'len :=
+      #1 'charptr :=
+        { charptr len <
+          x charptr #1 substring$ " " = not and
+          x charptr #1 substring$ "[" = not and
+        }
+        { charptr #1 + 'charptr := }
+      while$
+      x #1 charptr substring$
+      duplicate$ empty$
+        { pop$ }
+        { "https://arxiv.org/abs/" swap$ * 'entry.url :=
+          #1 'entry.is.electronic :=
+          #1 'is.pure.electronic :=
+        }
+      if$
+    }
+    'skip$
+  if$
+  purify$ #1 #5 substring$ "arxiv" =
     { #1 }
     { #0 }
   if$
@@ -1138,7 +1792,7 @@ FUNCTION {format.edition}
                 { edition num.to.ordinal " ed." * }
               if$
             }
-            'skip$
+            { "" }
           if$
         }
         { entry.lang lang.en =
@@ -1376,32 +2030,27 @@ FUNCTION {format.urldate}
   if$
 }
 
-FUNCTION {hyphenate}
-{ 't :=
-  ""
-    { t empty$ not }
-    { t #1 #1 substring$ "-" =
-        { wave.dash.in.pages
-            { "～" * }
-            { "-" * }
-          if$
-            { t #1 #1 substring$ "-" = }
-            { t #2 global.max$ substring$ 't := }
-          while$
-        }
-        { t #1 #1 substring$ *
-          t #2 global.max$ substring$ 't :=
-        }
+FUNCTION {normalize.page.range}
+{
+  "" swap$
+  { duplicate$ empty$ not }
+    {
+      #1 skip.inter.token.chars.by 't :=
+      empty$
+        { "" }
+        'page.range.delimiter
       if$
+      * t
+      #1 tokenize.by 't :=
+      * t
     }
   while$
+  pop$
 }
 
 FUNCTION {format.pages}
-{ pages empty$
-    { "" }
-    { pages hyphenate }
-  if$
+{
+  pages normalize.page.range
 }
 
 FUNCTION {format.extracted.pages}
@@ -1409,8 +2058,8 @@ FUNCTION {format.extracted.pages}
     { "" }
     { pages
       only.start.page
-        'extract.before.dash
-        'hyphenate
+        { #1 tokenize.by pop$ }
+        'normalize.page.range
       if$
     }
   if$
@@ -1610,35 +2259,18 @@ FUNCTION {check.electronic}
   if$
 }
 
-FUNCTION {format.eprint}
+FUNCTION {format.eprinttype}
 { archivePrefix empty$ not
     { archivePrefix }
     { eprinttype empty$ not
-        { archivePrefix }
-        { "" }
+        { eprinttype }
+        { type$ "article" = get.journal.title check.arxiv.preprint and
+            { "arXiv" }
+            { "" }
+          if$
+        }
       if$
     }
-  if$
-  's :=
-  s empty$ not
-    { s ": \eprint{" *
-      url empty$ not
-        { url }
-        { "https://" s "l" change.case$ * ".org/abs/" * eprint * }
-      if$
-      * "}{" *
-      eprint * "}" *
-    }
-    { eprint }
-  if$
-}
-
-FUNCTION {output.eprint}
-{ show.preprint eprint empty$ not and
-    { new.block
-      format.eprint output
-    }
-    'skip$
   if$
 }
 
@@ -1921,7 +2553,29 @@ FUNCTION {electronic}
 }
 
 FUNCTION {preprint}
-{ output.bibitem
+{ url empty$ not
+    { url 'entry.url :=
+      #1 'entry.is.electronic :=
+      #1 'is.pure.electronic :=
+    }
+    { eprint empty$
+        'skip$
+        { archivePrefix empty$
+            { eprinttype field.or.null }
+            { archivePrefix }
+          if$
+          "l" change.case$ "arxiv" =
+            { "https://arxiv.org/abs/" eprint * 'entry.url :=
+              #1 'entry.is.electronic :=
+              #1 'is.pure.electronic :=
+            }
+            'skip$
+          if$
+        }
+      if$
+    }
+  if$
+  output.bibitem
   output.translation
   author empty$ not
     { format.authors }
@@ -1952,27 +2606,21 @@ FUNCTION {preprint}
     }
     'skip$
   if$
-  format.translators output
-  new.sentence
   format.edition output
   new.block
-  year.after.author not
-    { date empty$
-        { format.date output }
-        'skip$
+  format.eprinttype output
+  date empty$ not
+    { "(" date * ")" * }
+    { year empty$ not
+        { "(" year * ")" * }
+        { "" }
       if$
     }
-    'skip$
   if$
-  format.pages bbl.pages.colon output.after
-  format.editdate "" output.after
+  " " output.after
   format.urldate "" output.after
-  output.eprint
   output.url
-  show.preprint not eprint empty$ or
-    'output.doi
-    'skip$
-  if$
+  output.doi
   new.block
   format.note output
   fin.entry
@@ -1989,10 +2637,11 @@ FUNCTION {misc}
     { pop$
       booktitle empty$ not
         'incollection
-        { publisher empty$ not
-            'monograph
-            { eprint empty$ not archivePrefix empty$ not or
-                'preprint
+        { archivePrefix empty$ not
+          eprinttype empty$ not or
+            'preprint
+            { publisher empty$ not
+                'monograph
                 { entry.is.electronic
                     'electronic
                     {
@@ -2076,6 +2725,8 @@ FUNCTION {online}
 }
 
 FUNCTION {phdthesis} { mastersthesis }
+
+FUNCTION {thesis} { mastersthesis }
 
 FUNCTION {proceedings}
 { "C" set.entry.mark
@@ -2195,7 +2846,6 @@ FUNCTION {format.lab.name}
 
 FUNCTION {format.lab.names}
 { 's :=
-  s #1 format.lab.name 'short.label :=
   #1 'nameptr :=
   s num.names$ 'numnames :=
   ""
@@ -2281,8 +2931,7 @@ FUNCTION {editor.key.organization.label}
 }
 
 FUNCTION {calc.short.authors}
-{ "" 'short.label :=
-  type$ "book" =
+{ type$ "book" =
   type$ "inbook" = booktitle empty$ not and
   or
     'author.editor.key.label
@@ -2299,10 +2948,6 @@ FUNCTION {calc.short.authors}
     }
   if$
   'short.list :=
-  short.label empty$
-    { short.list 'short.label := }
-    'skip$
-  if$
 }
 
 FUNCTION {calc.label}
@@ -2324,16 +2969,6 @@ FUNCTION {calc.label}
   if$
   *
   'label :=
-  short.label
-  "("
-  *
-  format.year duplicate$ empty$
-  short.list key field.or.null = or
-     { pop$ "" }
-     'skip$
-  if$
-  *
-  'short.label :=
 }
 
 FUNCTION {sort.language.label}
@@ -2527,7 +3162,7 @@ FUNCTION {initialize.longest.label}
 
 FUNCTION {forward.pass}
 {
-  last.label short.label =
+  last.label label =
     { "" 'extra.label :=
       last.extra.label text.length$ 'charptr :=
         { last.extra.label charptr #1 substring$ "z" =
@@ -2549,7 +3184,7 @@ FUNCTION {forward.pass}
     }
     { "a" 'last.extra.label :=
       "" 'extra.label :=
-      short.label 'last.label :=
+      label 'last.label :=
     }
   if$
   number.label #1 + 'number.label :=

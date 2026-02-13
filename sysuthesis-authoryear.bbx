@@ -4,14 +4,21 @@
 \RequireBibliographyStyle{gb7714-2015ay}
 
 \ExecuteBibliographyOptions{
+  gbnamefmt = lowercase,
   gbpub     = false,
-  gbpunctin = false,
   url       = false,
   doi       = false,
-  }
+}
 
-\DeclareDelimFormat{nameyeardelim}{\addperiod\space}
-\DeclareDelimFormat[bib,biblist]{nameyeardelim}{\addperiod\space}
+\defbibenvironment{bibliography}
+  {\list
+     {}
+     {\setlength{\leftmargin}{\bibhang}%
+      \setlength{\itemindent}{-\leftmargin}%
+      \setlength{\itemsep}{\bibitemsep}%
+      \setlength{\parsep}{\bibparsep}}}
+  {\endlist}
+  {\item}
 
 \DeclareFieldFormat{sentencecase}{%
   \iftoggle{bbx:titlelink}{%
@@ -23,18 +30,7 @@
   }%
 }
 
-% 将会议论文集析出形式由 [C]// 改为 [C].
-\DefineBibliographyStrings{english}{
-  in   = {},
-  incn = {},
-}
-
-%
-%   重设title的输出
-%
-%   20180425，v1.0k，为标题增加字体控制命令，Hu Zhenzhen
-%   原理方法:将文献类型标识符输出出去，原输出来自biblatex.def文件
-%   利用toggle做标识符是否输出的判断
+% gb7714-2015ay.bbx, line 2644
 \renewbibmacro*{title}{%
   \ifboolexpr{%
     test{\iffieldundef{title}}%
@@ -86,33 +82,6 @@
      \newunit}%
   \printfield{maintitleaddon}}
 
-
-%
-%   重设专利title的输出，将文献类型标识符输出出去
-%
-\renewbibmacro*{patenttitle}{%原输出来自biblatex.def文件
-  \ifboolexpr{%
-    test{\iffieldundef{title}}%
-    and%
-    test{\iffieldundef{subtitle}}%
-  }%
-    {}%
-    {\printtext[title]{\bibtitlefont%
-       \printfield[sentencecase]{title}%
-       \ifboolexpr{test {\iffieldundef{subtitle}}}
-       {}{\setunit{\subtitlepunct}%
-       \printfield[sentencecase]{subtitle}}%
-       \iffieldundef{titleaddon}{}
-        {\setunit{\subtitlepunct}\printfield{titleaddon}}%
-       % \setunit{\subtitlepunct}\printfield{number}%写专利号
-       \setunit{\subtitlepunct}%
-       \iflistundef{location}{}
-        {\printlist{location}\setunit{\addcomma\space}}% 专利国别
-       \printfield{number}%写专利号
-       \iftoggle{bbx:gbtype}{\printfield[gbtypeflag]{usera}}{}%
-     %\iffieldundef{booktitle}{\newunit}{}%当title是析出时，不要标点
-     %\newunit
-     }%
-}%
-\clearlist{location}\clearlist{address}%
-}
+% 斜线默认使用原字体，不再使用等宽字体
+% <https://github.com/tuna/thuthesis/discussions/1018>
+\def\SlashFont{}

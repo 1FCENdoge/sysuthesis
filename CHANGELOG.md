@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v2.0.0-beta5] 2026-02-13
+
 ### added
 
 - 添加 `author-year` 参考文献样式以及 `inline` 引用样式。
@@ -22,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 本科生内封英文标题改成 `\centering` 。
 - 研究生扉页英文标题改成 `\centering` 。
 - 对说明文档进行修订。
+- 对参考文献样式进行更新和 bug 修复（见[此处](https://github.com/SYSU-SCC/sysu-thesis/pull/121)）
 
 ### fixed
 
@@ -54,7 +57,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [v2.0.0-beta2] 2025-04-12
 
 
-[Unreleased]: https://github.com/1FCENdoge/sysuthesis/compare/v2.0.0-beta4...HEAD
+[Unreleased]: https://github.com/1FCENdoge/sysuthesis/compare/v2.0.0-beta5...HEAD
+[v2.0.0-beta5]: https://github.com/1FCENdoge/sysuthesis/compare/v2.0.0-beta4...v2.0.0-beta5
 [v2.0.0-beta4]: https://github.com/1FCENdoge/sysuthesis/compare/v2.0.0-beta3...v2.0.0-beta4
 [v2.0.0-beta3]: https://github.com/1FCENdoge/sysuthesis/compare/v2.0.0-beta2...v2.0.0-beta3
 [v2.0.0-beta2]: https://github.com/1FCENdoge/sysuthesis/releases/tag/v2.0.0-beta2
