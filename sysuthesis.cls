@@ -1900,10 +1900,10 @@
   \begin{titlepage}%
   	\sysu@pdfbookmark{封面}%
   	\centering
-%   扉页右上角标注密级  	
-  	\parbox[t][0.6cm][t]{\textwidth}{%
-  	  \raggedleft\heiti\fontsize{12bp}{12bp}\selectfont
-  	  \null\sysu@secret@level\par}\par
+%   扉页右上角标注密级
+%  	\parbox[t][0.6cm][t]{\textwidth}{%
+%  	  \raggedleft\heiti\fontsize{12bp}{12bp}\selectfont
+%  	  \null\sysu@secret@level\par}\par
 %  	  \vskip 0.5cm%
     \includegraphics[width=11cm]{\sysu@logo@path/SYSULogo}\\
   	\vskip 1.2cm%
