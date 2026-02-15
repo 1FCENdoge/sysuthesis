@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### changed
+
+- 修复`author-year` 参考文献样式会议论文集析出形式由 [C]// 改为 [C].
+- 修改几个参考文献样式的时间戳。
+
 ## [v2.0.0-beta5] 2026-02-13
 
 ### added
@@ -24,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 本科生内封英文标题改成 `\centering` 。
 - 研究生扉页英文标题改成 `\centering` 。
 - 对说明文档进行修订。
-- 对参考文献样式进行更新和 bug 修复（见[此处](https://github.com/SYSU-SCC/sysu-thesis/pull/121)）
+- 对参考文献样式进行更新和 bug 修复（见[此处](https://github.com/SYSU-SCC/sysu-thesis/pull/121)）。
 
 ### fixed
 

@@ -1,4 +1,4 @@
-\ProvidesFile{sysuthesis-authoryear.bbx}[2021/01/19 v1.0 SYSUThesis biblatex
+\ProvidesFile{sysuthesis-authoryear.bbx}[2026/02/15 v1.0 SYSUThesis biblatex
   bibliography style]
 
 \RequireBibliographyStyle{gb7714-2015ay}
@@ -28,6 +28,12 @@
   }{%
     \MakeSentenceCase{#1}%
   }%
+}
+
+% 将会议论文集析出形式由 [C]// 改为 [C].
+\DefineBibliographyStrings{english}{
+  in   = {},
+  incn = {},
 }
 
 % gb7714-2015ay.bbx, line 2644
