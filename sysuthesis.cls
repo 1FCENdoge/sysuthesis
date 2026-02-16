@@ -2211,6 +2211,8 @@
     aftername   = \quad,
     beforeskip  = 24bp,
     afterskip   = 18bp,
+    lofskip     = 0pt,
+    lotskip     = 0pt,
     fixskip     = true,
   },
 }
@@ -3484,6 +3486,8 @@
 }
 
 % \subsubsection{\pkg{nomencl} 宏包}
+
+\PassOptionsToPackage{notocbasic}{nomencl}
 
 \AtEndOfPackageFile*{nomencl}{
   \let\nomname\sysu@notation@name
