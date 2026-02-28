@@ -66,7 +66,7 @@
 
 如果发现模板有问题，请按照以下步骤操作：
 
-1. 阅读学校的标准，判断是否符合学校的要求：[本科生论文规范](https://lingnan.sysu.edu.cn/undergraduateprogram/node/753)；[研究生论文规范](https://graduate.sysu.edu.cn/sites/default/files/2019-04/中山大学研究生学位论文格式要求.pdf)；
+1. 阅读学校的标准，判断是否符合学校的要求：[本科生论文规范](https://lingnan.sysu.edu.cn/undergraduateprogram/node/753)；研究生论文规范；
 2. 阅读 [常见问题 FAQ](https://github.com/ustctug/ustcthesis/wiki/常见问题)；
 3. 将 TeX 发行版和宏包升级到最新，并且将模板升级到 Github 上最新版本，
 查看问题是否已经修复；
@@ -86,7 +86,7 @@
 ## 更多资料
 
 - [本科生论文规范](https://lingnan.sysu.edu.cn/undergraduateprogram/node/753)
-- [研究生论文规范](https://graduate.sysu.edu.cn/sites/default/files/2019-04/中山大学研究生学位论文格式要求.pdf)
+- 研究生论文规范
 - [LaTeX 新手入门指南](https://github.com/ustctug/ustcthesis/wiki/新手指南)
 - [常见问题 FAQ](https://github.com/ustctug/ustcthesis/wiki/常见问题)
 - [参与开发](https://github.com/ustctug/ustcthesis/wiki/参与开发)
