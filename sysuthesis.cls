@@ -707,11 +707,12 @@
       \ifsysu@system@mac
         \sysusetup{fontset = mac}
       \else
-        \IfFontExistsTF{Noto Serif CJK SC}{
-          \sysusetup{fontset = ubuntu}
-        }{
-          \sysusetup{fontset = fandol}
-        }
+        % \IfFontExistsTF{Noto Serif CJK SC}{
+        %   \sysusetup{fontset = ubuntu}
+        % }{
+        %   \sysusetup{fontset = fandol}
+        % }
+        \sysusetup{fontset = fandol}
       \fi
     }
   \fi

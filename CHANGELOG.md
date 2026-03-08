@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 移除图表清单中章之间的空行。
 - 修复与`nomencl`宏包间的冲突。
 - vscode中latex插件问题，详见[此处](https://github.com/ustctug/ustcthesis/issues/493)。
+- 将overleaf中的默认字体改为fandol。
 
 ### deleted
 
