@@ -1,19 +1,14 @@
-name: Test and release
+name: Release
 
 on:
-
   push:
     tags:
       - "v**"
 
-# For softprops/action-gh-release
-permissions:
-  contents: write
-  discussions: write
-
 jobs:
-  build:
-    if: ${{ !contains(github.event.head_commit.message, 'ci skip') }}
+  release:
+    if: ${{ github.repository == '1FCENdoge/sysuthesis' }}
+    name: Create GitHub release
     runs-on: ubuntu-latest
 
     steps:
@@ -24,20 +19,9 @@ jobs:
         uses: zauguin/install-texlive@v4
         with:
           package_file: .github/tl_packages
-              
-      - name: Create thesis
-        run: make main
 
       - name: Create doc
         run: make doc
-
-      - name: Archive failed test output
-        if: ${{ failure() }}
-        uses: actions/upload-artifact@v7
-        with:
-          name: testfiles
-          path: build/**/*.diff
-          retention-days: 3
 
       - name: Extract release notes
         id: extract-release-notes
