@@ -7,18 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [v2.0.0] 2026-03-15
-
 ### changed
 
 - 修改几个参考文献样式的时间戳。
 - 去掉扉页上原本预留给密级的空间，但仍保留对应代码以备不时之需（注：中山大学不接受涉密论文送审）。
-- 移除图表目录中章之间的空行。
 - 将overleaf中的默认字体改为fandol。
 
 ### deleted
 
 - 研究生论文格式可能要更改，之前的链接已失效。
+- 移除图表目录中章之间的空行。
 
 ### fixed
 
@@ -46,11 +44,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 本科生内封英文标题改成 `\centering` 。
 - 研究生扉页英文标题改成 `\centering` 。
 - 对说明文档进行修订。
-- 对参考文献样式进行更新和 bug 修复（见[此处](https://github.com/SYSU-SCC/sysu-thesis/pull/121)）。
+- 对参考文献样式进行更新。
 
 ### fixed
 
 - 修正声明页中是否控阅选项（好像不太用得上，中山大学不允许提交涉密论文）。
+- 修复引用著作 edition=1 时无法通过编译的问题（见[此处](https://github.com/SYSU-SCC/sysu-thesis/pull/121)）。
 
 ## [v2.0.0-beta4] 2025-05-03
 
@@ -79,8 +78,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [v2.0.0-beta2] 2025-04-12
 
 
-[Unreleased]: https://github.com/1FCENdoge/sysuthesis/compare/v2.0.0...HEAD
-[v2.0.0]: https://github.com/1FCENdoge/sysuthesis/compare/v2.0.0-beta5...v2.0.0
+[Unreleased]: https://github.com/1FCENdoge/sysuthesis/compare/v2.0.0-beta5...HEAD
 [v2.0.0-beta5]: https://github.com/1FCENdoge/sysuthesis/compare/v2.0.0-beta4...v2.0.0-beta5
 [v2.0.0-beta4]: https://github.com/1FCENdoge/sysuthesis/compare/v2.0.0-beta3...v2.0.0-beta4
 [v2.0.0-beta3]: https://github.com/1FCENdoge/sysuthesis/compare/v2.0.0-beta2...v2.0.0-beta3
