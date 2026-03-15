@@ -3,7 +3,8 @@ name: Test and release
 on:
 
   push:
-  pull_request:
+    tags:
+      - "v**"
 
 # For softprops/action-gh-release
 permissions:
