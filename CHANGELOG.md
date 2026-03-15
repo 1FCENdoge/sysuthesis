@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v2.0.0] 2026-03-15
+
 ### changed
 
 - 修改几个参考文献样式的时间戳。
@@ -25,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - vscode中latex插件问题，详见[此处](https://github.com/ustctug/ustcthesis/issues/493)。
 - 修复`author-year` 参考文献样式会议论文集析出形式由 [C]// 改为 [C].
 - 修正“关键词”的格式。
+- 修正了调用 `mathtools` 后 `\eqref` 与前文间距的问题（[tuna/thuthesis#1043](https://github.com/tuna/thuthesis/discussions/1043)）。
 
 ## [v2.0.0-beta5] 2026-02-13
 
@@ -76,7 +79,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [v2.0.0-beta2] 2025-04-12
 
 
-[Unreleased]: https://github.com/1FCENdoge/sysuthesis/compare/v2.0.0-beta5...HEAD
+[Unreleased]: https://github.com/1FCENdoge/sysuthesis/compare/v2.0.0...HEAD
+[v2.0.0]: https://github.com/1FCENdoge/sysuthesis/compare/v2.0.0-beta5...v2.0.0
 [v2.0.0-beta5]: https://github.com/1FCENdoge/sysuthesis/compare/v2.0.0-beta4...v2.0.0-beta5
 [v2.0.0-beta4]: https://github.com/1FCENdoge/sysuthesis/compare/v2.0.0-beta3...v2.0.0-beta4
 [v2.0.0-beta3]: https://github.com/1FCENdoge/sysuthesis/compare/v2.0.0-beta2...v2.0.0-beta3
