@@ -2365,7 +2365,7 @@
   \fi
 }{
   \par\null\par\noindent\hangindent=4em\relax
-  \textbf{关键词}：\sysu@keywords@text\par
+  \textbf{关键词：}\sysu@keywords@text\par
   \sysu@reset@main@language
   \newpage
 }

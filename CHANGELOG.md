@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 修复与`nomencl`宏包间的冲突。
 - vscode中latex插件问题，详见[此处](https://github.com/ustctug/ustcthesis/issues/493)。
 - 修复`author-year` 参考文献样式会议论文集析出形式由 [C]// 改为 [C].
+- 修正“关键词”的格式。
 
 ## [v2.0.0-beta5] 2026-02-13
 
