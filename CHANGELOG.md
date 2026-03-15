@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v2.0.0-beta6] 2026-03-15
+
 ### changed
 
 - 修改几个参考文献样式的时间戳。
@@ -56,11 +58,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### changed
 
 - 对示例内容进行调整，减少示例内容，组图示例不再展示。
-- 删去空白页页码。
-- 参考文献使用 BibLaTeX 编译时不显示 url 和 doi 链接。
-- 删去 `sysuthesis.cls` 文件中的版本标识。
 - BibLaTeX 将会议论文集析出形式由 [C]// 改为 [C].
 - 修改说明文档 `sysuthesis-guide.pdf` 。
+
+### deleted
+
+- 删去空白页页码。
+- 删去 `sysuthesis.cls` 文件中的版本标识。
+- 参考文献使用 BibLaTeX 编译时不显示 url 和 doi 链接。
 
 ## [v2.0.0-beta3] 2025-04-20
 
@@ -78,7 +83,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [v2.0.0-beta2] 2025-04-12
 
 
-[Unreleased]: https://github.com/1FCENdoge/sysuthesis/compare/v2.0.0-beta5...HEAD
+[Unreleased]: https://github.com/1FCENdoge/sysuthesis/compare/v2.0.0-beta6...HEAD
+[v2.0.0-beta6]: https://github.com/1FCENdoge/sysuthesis/compare/v2.0.0-beta5...v2.0.0-beta6
 [v2.0.0-beta5]: https://github.com/1FCENdoge/sysuthesis/compare/v2.0.0-beta4...v2.0.0-beta5
 [v2.0.0-beta4]: https://github.com/1FCENdoge/sysuthesis/compare/v2.0.0-beta3...v2.0.0-beta4
 [v2.0.0-beta3]: https://github.com/1FCENdoge/sysuthesis/compare/v2.0.0-beta2...v2.0.0-beta3
