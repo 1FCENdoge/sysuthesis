@@ -9,17 +9,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### changed
 
-- 修复`author-year` 参考文献样式会议论文集析出形式由 [C]// 改为 [C].
 - 修改几个参考文献样式的时间戳。
 - 去掉扉页上原本预留给密级的空间，但仍保留对应代码以备不时之需（注：中山大学不接受涉密论文送审）。
-- 移除图表清单中章之间的空行。
-- 修复与`nomencl`宏包间的冲突。
-- vscode中latex插件问题，详见[此处](https://github.com/ustctug/ustcthesis/issues/493)。
+- 移除图表目录中章之间的空行。
 - 将overleaf中的默认字体改为fandol。
 
 ### deleted
 
 - 研究生论文格式可能要更改，之前的链接已失效。
+
+### fixed
+
+- 修正 LuaTeX 部分符号错误地使用西文字体（[tuna/thuthesis#1022](https://github.com/tuna/thuthesis/issues/1022)）。
+- 修复与`nomencl`宏包间的冲突。
+- vscode中latex插件问题，详见[此处](https://github.com/ustctug/ustcthesis/issues/493)。
+- 修复`author-year` 参考文献样式会议论文集析出形式由 [C]// 改为 [C].
 
 ## [v2.0.0-beta5] 2026-02-13
 
