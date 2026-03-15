@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [v2.0.0] 2026-03-15
+## [v2.0.1] 2026-03-15
 
 ### changed
 
@@ -79,8 +79,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [v2.0.0-beta2] 2025-04-12
 
 
-[Unreleased]: https://github.com/1FCENdoge/sysuthesis/compare/v2.0.0...HEAD
-[v2.0.0]: https://github.com/1FCENdoge/sysuthesis/compare/v2.0.0-beta5...v2.0.0
+[Unreleased]: https://github.com/1FCENdoge/sysuthesis/compare/v2.0.1...HEAD
+[v2.0.1]: https://github.com/1FCENdoge/sysuthesis/compare/v2.0.0-beta5...v2.0.1
 [v2.0.0-beta5]: https://github.com/1FCENdoge/sysuthesis/compare/v2.0.0-beta4...v2.0.0-beta5
 [v2.0.0-beta4]: https://github.com/1FCENdoge/sysuthesis/compare/v2.0.0-beta3...v2.0.0-beta4
 [v2.0.0-beta3]: https://github.com/1FCENdoge/sysuthesis/compare/v2.0.0-beta2...v2.0.0-beta3
