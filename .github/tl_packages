@@ -43,7 +43,7 @@ nomencl
 koma-script
 xkeyval
 #
-# Dependencies for ustcthesis
+# Dependencies for sysuthesis
 bigfoot
 caption
 enumitem
@@ -55,6 +55,9 @@ notoccite
 multirow
 titlesec
 unicode-math
+makecell
+csvsimple
+adjustbox
 #
 # Dependencies for fonts
 fandol

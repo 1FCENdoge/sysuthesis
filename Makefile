@@ -17,31 +17,31 @@ all : main doc
 
 cls : $(CLSFILES) $(BSTFILES)
 
-doc : $(NAME)-doc.pdf
+doc : $(NAME)-guide.pdf
 
 $(MAIN).pdf : $(MAIN).tex $(CLSFILES) $(BSTFILES) FORCE_MAKE
 	$(LATEXMK) $<
 
-$(NAME)-doc.pdf : $(NAME)-doc.tex FORCE_MAKE
+$(NAME)-guide.pdf : $(NAME)-guide.tex FORCE_MAKE
 	$(LATEXMK) $<
 
 clean : FORCE_MAKE
-	$(LATEXMK) -c $(MAIN).tex $(NAME)-doc.tex
+	$(LATEXMK) -c $(MAIN).tex $(NAME)-guide.tex
 
 cleanall :
-	$(LATEXMK) -C $(MAIN).tex $(NAME)-doc.tex
+	$(LATEXMK) -C $(MAIN).tex $(NAME)-guide.tex
 
 install : cls doc
 	mkdir -p $(TEXMF)/{doc,source,tex}/latex/$(NAME)
 	mkdir -p $(TEXMF)/bibtex/bst/$(NAME)
 	cp $(BSTFILES) $(TEXMF)/bibtex/bst/$(NAME)
-	cp $(NAME)-doc.pdf $(TEXMF)/doc/latex/$(NAME)/$(NAME).pdf
+	cp $(NAME)-guide.pdf $(TEXMF)/doc/latex/$(NAME)/$(NAME).pdf
 	cp $(CLSFILES) $(TEXMF)/tex/latex/$(NAME)
 
 zip : main doc
 	ln -sf . $(NAME)
 	zip -r $(NAME)-v$(VERSION).zip $(NAME)/{*.md,LICENSE,\
-	$(NAME)-doc.tex,$(NAME)-doc.pdf,$(NAME).cls,*.bst,*.bbx,*.cbx,figures,\
+	$(NAME)-guide.tex,$(NAME)-guide.pdf,$(NAME).cls,*.bst,*.bbx,*.cbx,figures,\
 	$(MAIN).tex,sysusetup.tex,chapters,bib,$(MAIN).pdf,\
 	latexmkrc,Makefile}
 	rm $(NAME)
