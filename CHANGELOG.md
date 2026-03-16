@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 修改几个参考文献样式的时间戳。
 - 去掉扉页上原本预留给密级的空间，但仍保留对应代码以备不时之需（注：中山大学不接受涉密论文送审）。
 - 将overleaf中的默认字体改为fandol。
+- 修改了github CI
 
 ### deleted
 
