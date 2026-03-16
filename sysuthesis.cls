@@ -9,7 +9,8 @@
 %
 
 \NeedsTeXFormat{LaTeX2e}[2017/04/15]
-\ProvidesClass{sysuthesis}[2025/02/25 sysu thesis template]
+\newcommand\sysuthesisversion{2.0.0-beta7}
+\ProvidesClass{sysuthesis}[2026/03/15 v\sysuthesisversion\space SYSU thesis template]
 
 % 报错和警告
 \newcommand\sysu@error[1]{%

@@ -1,12 +1,12 @@
 MAIN = main
 NAME = sysuthesis
 CLSFILES = $(NAME).cls
-BSTFILES = $(NAME)-numerical.bst
+BSTFILES = $(NAME)-numerical.bst $(NAME)-authoryear.bst
 
 SHELL = bash
 LATEXMK = latexmk -xelatex
-# VERSION = $(shell cat $(NAME).cls | egrep -o "\\ustcthesisversion{v[0-9.]+" \
-# 	  | egrep -o "v[0-9.]+")
+VERSION = $(shell cat $(NAME).cls | egrep -o "\\sysuthesisversion{[0-9.]+[0-9a-z.-]*" \
+	  | egrep -o "[0-9.]+[0-9a-z.-]*")
 TEXMF = $(shell kpsewhich --var-value TEXMFHOME)
 
 .PHONY : main cls doc clean all install distclean zip FORCE_MAKE
@@ -17,31 +17,31 @@ all : main doc
 
 cls : $(CLSFILES) $(BSTFILES)
 
-doc : $(NAME)-guide.pdf
+doc : $(NAME)-doc.pdf
 
 $(MAIN).pdf : $(MAIN).tex $(CLSFILES) $(BSTFILES) FORCE_MAKE
 	$(LATEXMK) $<
 
-$(NAME)-guide.pdf : $(NAME)-guide.tex FORCE_MAKE
+$(NAME)-doc.pdf : $(NAME)-doc.tex FORCE_MAKE
 	$(LATEXMK) $<
 
 clean : FORCE_MAKE
-	$(LATEXMK) -c $(MAIN).tex $(NAME)-guide.tex
+	$(LATEXMK) -c $(MAIN).tex $(NAME)-doc.tex
 
 cleanall :
-	$(LATEXMK) -C $(MAIN).tex $(NAME)-guide.tex
+	$(LATEXMK) -C $(MAIN).tex $(NAME)-doc.tex
 
 install : cls doc
 	mkdir -p $(TEXMF)/{doc,source,tex}/latex/$(NAME)
 	mkdir -p $(TEXMF)/bibtex/bst/$(NAME)
 	cp $(BSTFILES) $(TEXMF)/bibtex/bst/$(NAME)
-	cp $(NAME).pdf $(TEXMF)/doc/latex/$(NAME)
+	cp $(NAME)-doc.pdf $(TEXMF)/doc/latex/$(NAME)/$(NAME).pdf
 	cp $(CLSFILES) $(TEXMF)/tex/latex/$(NAME)
 
 zip : main doc
 	ln -sf . $(NAME)
-	zip -r ../$(NAME)-$(VERSION).zip $(NAME)/{*.md,LICENSE,\
-	$(NAME)-guide.tex,$(NAME)-guide.pdf,$(NAME).cls,*.bst,*.bbx,*.cbx,figures,\
+	zip -r $(NAME)-v$(VERSION).zip $(NAME)/{*.md,LICENSE,\
+	$(NAME)-doc.tex,$(NAME)-doc.pdf,$(NAME).cls,*.bst,*.bbx,*.cbx,figures,\
 	$(MAIN).tex,sysusetup.tex,chapters,bib,$(MAIN).pdf,\
 	latexmkrc,Makefile}
 	rm $(NAME)

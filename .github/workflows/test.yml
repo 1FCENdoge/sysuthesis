@@ -1,0 +1,34 @@
+name: Test
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    if: ${{ !contains(github.event.head_commit.message, 'ci skip') }}
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up TeX Live
+        uses: zauguin/install-texlive@v4
+        with:
+          package_file: .github/tl_packages
+
+      - name: Test example
+        run: make main
+
+      - name: Test doc
+        run: make doc
+
+      - name: Archive failed test output
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: testfiles
+          path: build/**/*.diff
+          retention-days: 3

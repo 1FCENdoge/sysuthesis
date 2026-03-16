@@ -18,6 +18,9 @@ fontspec
 ulem
 xecjk
 xetex
+# Dependencies for LuaTeX
+chinese-jfm
+lualatex-math
 #
 # Dependencies for ctex
 cjk
@@ -52,9 +55,6 @@ notoccite
 multirow
 titlesec
 unicode-math
-makecell
-csvsimple
-adjustbox
 #
 # Dependencies for fonts
 fandol
