@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 整理和修改了 `CHANGELOG.md` 中的部分内容，使 `CHANGELOG.md` 文件更具可读性。
 - `release`页面中现只附带使用说明文档 `sysuthesis-guide.pdf`。
 
+### fixed
+
+- 修复 `package bicaption: main language is not set` 警告。
+
 ## [v2.0.0-beta6] 2026-03-16
 
 ### changed

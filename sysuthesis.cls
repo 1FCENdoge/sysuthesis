@@ -2095,8 +2095,8 @@
       论文原创性声明\par}%
     \vskip 0.7cm%
     \sysu@originality\par
-    \vskip 1.3cm%
-    学位论文作者签名：\hspace{3cm} \par %
+    \vskip 0.6cm%
+    学位论文作者签名：\par %
     \vskip 0.5cm%
     日期：\hspace{1.1cm} 年 \hspace{0.7cm} 月 \hspace{0.7cm} 日\par
     \vskip 1.9cm%
@@ -2112,7 +2112,7 @@
 %      $\square$\hbox{}公开\quad
 %      \sysu@checkbox\hbox{}控阅（\sysu@underline[2em]{\sysu@secret@year}年）\par
 %    \fi
-    \vskip 0.5cm%
+%    \vskip 0.5cm%
     学位论文作者签名：\hspace{3cm}%
     导师签名：\par
     \vskip 0.5cm%
@@ -2721,6 +2721,9 @@
 \fi
 
 % 中英文双标题
+\AtBeginOfPackageFile*{bicaption}{
+  \let\captionmainlanguage\sysu@main@language
+}
 \AtEndOfPackageFile*{bicaption}{
   \captionsetup[bi-first]{lang = chinese}% 第一种语言图、表标题
   \captionsetup[bi-second]{% 第二种语言图、表标题
