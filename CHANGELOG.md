@@ -7,9 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v2.0.0-beta.7]
+
 ### changed
 
 - 整理和修改了 `CHANGELOG.md` 中的部分内容，使 `CHANGELOG.md` 文件更具可读性。
+
+### fixed
+
+- 修复`release`页面中`.zip`文件没有版本号的问题。
 
 ## [v2.0.0-beta6] 2026-03-16
 
@@ -90,7 +96,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [v2.0.0-beta2] 2025-04-12
 
 
-[Unreleased]: https://github.com/1FCENdoge/sysuthesis/compare/v2.0.0-beta6...HEAD
+[Unreleased]: https://github.com/1FCENdoge/sysuthesis/compare/v2.0.0-beta.7...HEAD
+[v2.0.0-beta.7]: https://github.com/1FCENdoge/sysuthesis/compare/v2.0.0-beta6...v2.0.0-beta.7
 [v2.0.0-beta6]: https://github.com/1FCENdoge/sysuthesis/compare/v2.0.0-beta5...v2.0.0-beta6
 [v2.0.0-beta5]: https://github.com/1FCENdoge/sysuthesis/compare/v2.0.0-beta4...v2.0.0-beta5
 [v2.0.0-beta4]: https://github.com/1FCENdoge/sysuthesis/compare/v2.0.0-beta3...v2.0.0-beta4
