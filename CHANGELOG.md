@@ -7,14 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### changed
+
+- 整理和修改了 `CHANGELOG.md` 中的部分内容，使 `CHANGELOG.md` 文件更具可读性。
+
 ## [v2.0.0-beta6] 2026-03-16
 
 ### changed
 
-- 修改几个参考文献样式的时间戳。
 - 去掉扉页上原本预留给密级的空间，但仍保留对应代码以备不时之需（注：中山大学不接受涉密论文送审）。
 - 将overleaf中的默认字体改为fandol。
-- 修改了github CI
+- 修改了github CI。
+- 将`author-year` 参考文献样式会议论文集析出形式由 [C]// 改为 [C].
 
 ### deleted
 
@@ -25,8 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - 修正 LuaTeX 部分符号错误地使用西文字体（[tuna/thuthesis#1022](https://github.com/tuna/thuthesis/issues/1022)）。
 - 修复与`nomencl`宏包间的冲突。
-- vscode中latex插件问题，详见[此处](https://github.com/ustctug/ustcthesis/issues/493)。
-- 修复`author-year` 参考文献样式会议论文集析出形式由 [C]// 改为 [C].
+- 修复vscode中latex插件无法一次编译全部生成的问题，详见[此处](https://github.com/ustctug/ustcthesis/issues/493)。
 - 修正“关键词”的格式。
 - 修正了调用 `mathtools` 后 `\eqref` 与前文间距的问题（[tuna/thuthesis#1043](https://github.com/tuna/thuthesis/discussions/1043)）。
 
@@ -51,14 +54,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### fixed
 
-- 修正声明页中是否控阅选项（好像不太用得上，中山大学不允许提交涉密论文）。
-- 修复引用著作 edition=1 时无法通过编译的问题（见[此处](https://github.com/SYSU-SCC/sysu-thesis/pull/121)）。
+- 修正声明页中是否控阅选项错误换行的问题（好像不太用得上，中山大学不允许提交涉密论文）（见[此处](https://github.com/ustctug/ustcthesis/issues/470)）。
+- 修复引用著作 edition=1 时 bibtex 无法通过编译的问题（见[此处](https://github.com/ustctug/ustcthesis/issues/476)）。
 
 ## [v2.0.0-beta4] 2025-05-03
 
 ### changed
 
-- 对示例内容进行调整，减少示例内容，组图示例不再展示。
 - BibLaTeX 将会议论文集析出形式由 [C]// 改为 [C].
 - 修改说明文档 `sysuthesis-guide.pdf` 。
 
@@ -67,6 +69,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 删去空白页页码。
 - 删去 `sysuthesis.cls` 文件中的版本标识。
 - 参考文献使用 BibLaTeX 编译时不显示 url 和 doi 链接。
+- 减少示例内容，组图示例不再展示。
 
 ## [v2.0.0-beta3] 2025-04-20
 
@@ -75,11 +78,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 本科生内封英文标题改成 `\centerlast` ，英文标题行间距由42 bp 改为37 bp 。
 - 研究生扉页英文标题改成 `\centerlast` ，英文标题行间距由25 bp 改为29 bp ，中文标题行间距由28 bp 改为32 bp 。
 - 更新 github Action ，减少 CI 所需时间，在发布版中附带说明文档 `sysuthesis-guide.pdf` 。
-- 空白页加上页码。
 - 研究生页眉更改为：奇数页章标题，偶数页“中山大学博士（硕士）学位论文”。
-- 增加组图示例。
 - 对研究生扉页进行改动，论文题目与作者信息距离增大，不再挤在一起；委员会的签名栏居中放置。
 - 符号说明不再从奇数页另起。
+
+### added
+
+- 空白页加上页码。
+- 增加组图示例。
 
 ## [v2.0.0-beta2] 2025-04-12
 
