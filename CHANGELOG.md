@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### fixed
 
 - 修复 `package bicaption: main language is not set` 警告。
-- 修复本科生模板中`headsep`、`headheight`未定义的问题。
+- 修复本科生模板中`headsep`、`headheight`、`footskip`未定义的问题。
 
 ## [v2.0.0-beta6] 2026-03-16
 
