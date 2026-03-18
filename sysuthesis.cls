@@ -1556,15 +1556,18 @@
 \ifsysu@degree@graduate
   \geometry{
     paper      = a4paper,
-    vmargin    = 2.54cm,
-    hmargin    = 3.17cm,
     headheight = 0.53cm,
     headsep    = 0.25cm,
     footskip   = 0.79cm,
+    vmargin    = 2.54cm,
+    hmargin    = 3.17cm,
   }
 \else
   \geometry{
   	paper      = a4paper,
+    headheight = 0.53cm,
+    headsep    = 0.25cm,
+    footskip   = 0.79cm,
   	top        = 2.5cm,
   	bottom     = 2.0cm,
   	hmargin    = 3.0cm,
@@ -2139,7 +2142,7 @@
 		学术诚信声明\par}%
 	\vskip 0.7cm%
 	\sysu@integrity\par
-	\vskip 2.4cm%
+	\vskip 1.2cm%
 	
 	\begin{flushright}
 		\makebox[2.1cm][s]{作者签名：} \makebox[5cm]{\hspace{1cm}} \\
